@@ -1,0 +1,16 @@
+---
+interface Props { pose: 'wave'|'point'|'think'|'win'; label?: string; size?: 'sm'|'md'|'lg'; flip?: boolean }
+const { pose, label = 'Papy AI', size = 'md', flip = false } = Astro.props;
+---
+<figure class:list={['mascot',`mascot-${size}`,{flip}]}>
+  <div class="mascot-glow" aria-hidden="true"></div>
+  <img src={`/mascot/papy-${pose}.png`} alt={label} width="1024" height="1536" loading={size === 'lg' ? 'eager' : 'lazy'} />
+</figure>
+<style>
+  .mascot{position:relative;margin:0;display:flex;align-items:flex-end;justify-content:center;isolation:isolate;filter:drop-shadow(0 22px 24px rgba(0,0,0,.28))}
+  .mascot img{position:relative;z-index:1;width:100%;height:auto;object-fit:contain;object-position:center bottom}
+  .mascot-glow{position:absolute;z-index:0;width:72%;aspect-ratio:1;bottom:8%;border-radius:50%;background:radial-gradient(circle,rgba(239,85,26,.32),rgba(32,26,146,.1) 55%,transparent 72%);filter:blur(14px)}
+  .mascot-sm{width:150px}.mascot-md{width:220px}.mascot-lg{width:min(390px,100%)}
+  .flip img{transform:scaleX(-1)}
+  @media(max-width:700px){.mascot-md{width:180px}.mascot-lg{width:260px}}
+</style>
