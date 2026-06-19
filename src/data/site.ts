@@ -4,4 +4,4 @@ export const socialLinks = [
   { name: 'YouTube', url: 'https://www.youtube.com/@papyAi', label: '@papyAi' },
   { name: 'Gumroad', url: 'https://papyai.gumroad.com', label: 'La boutique' },
 ];
-export const contactEmail = 'bonjour@papy-ai.fr';
+export const contactEmail = 'papynotion@gmail.com';
