@@ -1,0 +1,4 @@
+---
+const { eyebrow, title, text }=Astro.props;
+---
+<div><span class="eyebrow">{eyebrow}</span><h2>{title}</h2>{text&&<p>{text}</p>}</div><style>h2{margin-top:10px}p{color:#aaa8ba;max-width:610px;margin:13px 0 0}</style>

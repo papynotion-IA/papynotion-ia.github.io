@@ -1,0 +1,5 @@
+---
+import type {Tip} from '../data/tips';
+const {tip,compact=false}:{tip:Tip,compact?:boolean}=Astro.props;
+---
+<article class="card tip-card" data-search={`${tip.title} ${tip.summary} ${tip.category}`.toLowerCase()} data-category={tip.category}><div><span class="badge badge-orange">{tip.category}</span><span class="time">{tip.readTime} de lecture</span></div><h3>{tip.title}</h3><p>{tip.summary}</p>{!compact&&<><div class="body"><p>{tip.content}</p><b>Exemple concret</b><p>{tip.example}</p><b>Erreur à éviter</b><p>{tip.mistake}</p></div></>}{compact&&<a href={`/astuces#${tip.slug}`}>Lire l’astuce <span>→</span></a>}</article><style>.tip-card{display:flex;flex-direction:column;gap:14px}.tip-card>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:10px}.time{font-size:.76rem;color:#aaa8ba}.tip-card>p,.body p{color:#aaa8ba;margin:0}.body{border-top:1px solid rgba(255,255,255,.1);padding-top:15px}.body b{display:block;color:#f8a562;margin:14px 0 5px}.tip-card a{color:#ffc49c;font-weight:750;font-size:.9rem;margin-top:auto}</style>
