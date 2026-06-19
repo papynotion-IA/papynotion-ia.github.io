@@ -1,5 +1,14 @@
 ---
 import type {Tip} from '../data/tips';
 const {tip,compact=false}:{tip:Tip,compact?:boolean}=Astro.props;
+const marker=tip.category.includes('images')?'◉':tip.category.includes('temps')?'↗':tip.category.includes('prompt')?'✦':'⌁';
 ---
-<article class="card tip-card" data-search={`${tip.title} ${tip.summary} ${tip.category}`.toLowerCase()} data-category={tip.category}><div><span class="badge badge-orange">{tip.category}</span><span class="time">{tip.readTime} de lecture</span></div><h3>{tip.title}</h3><p>{tip.summary}</p>{!compact&&<><div class="body"><p>{tip.content}</p><b>Exemple concret</b><p>{tip.example}</p><b>Erreur à éviter</b><p>{tip.mistake}</p></div></>}{compact&&<a href={`/astuces#${tip.slug}`}>Lire l’astuce <span>→</span></a>}</article><style>.tip-card{display:flex;flex-direction:column;gap:14px}.tip-card>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:10px}.time{font-size:.76rem;color:#aaa8ba}.tip-card>p,.body p{color:#aaa8ba;margin:0}.body{border-top:1px solid rgba(255,255,255,.1);padding-top:15px}.body b{display:block;color:#ff7a00;margin:14px 0 5px}.tip-card a{color:#ffc49c;font-weight:750;font-size:.9rem;margin-top:auto}</style>
+<article class:list={['tip-card',{compact}]} data-search={`${tip.title} ${tip.summary} ${tip.category}`.toLowerCase()} data-category={tip.category}>
+  <div class="tip-top"><span class="marker">{marker}</span><div><span class="category">{tip.category}</span><span class="time">{tip.readTime} de lecture</span></div></div>
+  <h3>{tip.title}</h3><p class="summary">{tip.summary}</p>
+  {!compact&&<div class="body"><p>{tip.content}</p><div class="example"><b>À tester</b><p>{tip.example}</p></div><div class="mistake"><b>À éviter</b><p>{tip.mistake}</p></div></div>}
+  {compact&&<a href={`/astuces#${tip.slug}`}>Lire et tester <span>→</span></a>}
+</article>
+<style>
+  .tip-card{display:flex;flex-direction:column;gap:16px;padding:26px;border-radius:24px;background:#f9f6f4;color:#0a0823;border:1px solid rgba(10,8,35,.1);transition:.22s}.tip-card:hover{transform:translateY(-4px);box-shadow:0 22px 55px rgba(0,0,0,.22)}.tip-top{display:flex;gap:13px;align-items:center}.marker{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:#ff7a00;color:#090851;font-size:1.15rem;font-weight:900}.tip-top>div{display:grid}.category{font-size:.73rem;font-weight:850;text-transform:uppercase;letter-spacing:.05em;color:#9b3a00}.time{font-size:.72rem;color:#77727f}.tip-card h3{font-size:1.6rem}.summary{color:#575260;margin:0}.body{border-top:1px solid rgba(10,8,35,.1);padding-top:15px}.body>p{color:#575260}.example,.mistake{padding:14px 15px;border-radius:14px;margin-top:12px;background:#e8e3de}.example{background:#0a0823;color:#fff}.example b{color:#ff8d26}.mistake b{color:#9b3a00}.example p,.mistake p{margin:5px 0 0;font-size:.88rem}.tip-card>a{color:#9b3a00;font-weight:800;margin-top:auto}
+</style>

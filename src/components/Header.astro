@@ -1,5 +1,5 @@
 ---
-const nav=[['Accueil','/'],['Prompts','/prompts'],['Astuces','/astuces'],['Ressources','/ressources'],['À propos','/a-propos'],['Liens','/contact']];
+const nav=[['Accueil','/'],['Prompts','/prompts'],['Astuces','/astuces'],['Ressources','/ressources'],['À propos','/a-propos'],['Me suivre','/contact']];
 const current=Astro.url.pathname;
 ---
 <header class="header"><div class="wrap nav"><a class="logo" href="/" aria-label="Papy AI, accueil"><span>P</span>Papy AI</a><button class="menu" aria-label="Ouvrir le menu" aria-expanded="false">Menu</button><nav aria-label="Navigation principale">{nav.map(([label,href])=><a href={href} class:list={{active:href==='/'?current===href:current.startsWith(href)}}>{label}</a>)}</nav><a class="mini-cta" href="/prompts">Piocher un prompt <b>↗</b></a></div></header>
