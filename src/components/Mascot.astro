@@ -4,7 +4,7 @@ const { pose, label = 'Papy AI', size = 'md', flip = false } = Astro.props;
 ---
 <figure class:list={['mascot',`mascot-${size}`,{flip}]}>
   <div class="mascot-glow" aria-hidden="true"></div>
-  <img src={`/mascot/papy-${pose}.png`} alt={label} width="1024" height="1536" loading={size === 'lg' ? 'eager' : 'lazy'} />
+  <img src={`/mascot/papy-${pose}.webp`} alt={label} width="1024" height="1536" loading={size === 'lg' ? 'eager' : 'lazy'} />
 </figure>
 <style>
   .mascot{position:relative;margin:0;display:flex;align-items:flex-end;justify-content:center;isolation:isolate;filter:drop-shadow(0 22px 24px rgba(0,0,0,.28))}
