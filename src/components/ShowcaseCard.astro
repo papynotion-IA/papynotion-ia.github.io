@@ -1,0 +1,10 @@
+---
+const { image, number, tool, title, text, href='/prompts' } = Astro.props;
+---
+<a class="showcase" href={href}>
+  <img src={image} alt={`Création exemple : ${title}`} width="900" height="1125" loading="lazy"/>
+  <div class="overlay"><span>{number}</span><div><small>{tool}</small><h3>{title}</h3><p>{text}</p></div><b>↗</b></div>
+</a>
+<style>
+  .showcase{position:relative;display:block;min-height:480px;overflow:hidden;border-radius:26px;background:#201a92;border:1px solid rgba(255,255,255,.14)}img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .55s ease}.showcase:hover img{transform:scale(1.035)}.showcase:after{content:"";position:absolute;inset:25% 0 0;background:linear-gradient(transparent,rgba(10,8,35,.95))}.overlay{position:absolute;z-index:2;left:0;right:0;bottom:0;display:grid;grid-template-columns:40px 1fr auto;gap:13px;align-items:end;padding:24px}.overlay>span{font:700 .72rem 'JetBrains Mono';color:#ff9a3d}.overlay small{color:#ff9a3d;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.overlay h3{font-size:1.55rem;margin:5px 0}.overlay p{color:#c4c1d0;margin:0;font-size:.86rem}.overlay b{font-size:1.4rem}@media(max-width:800px){.showcase{min-height:390px}}
+</style>

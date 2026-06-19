@@ -1,4 +1,18 @@
 ---
 import type {Resource} from '../data/resources'; const {resource:r}:{resource:Resource}=Astro.props;
 ---
-<article class:list={['card','resource-card',{featured:r.featured}]}><div class="resource-icon">{r.type.includes('Notion')?'N':r.type.includes('PDF')?'PDF':'✦'}</div><div class="tag-row"><span class="badge">{r.type}</span><span class="badge badge-orange">{r.price}</span></div><h3>{r.title}</h3><p>{r.description}</p><a class="btn btn-secondary" href={r.url} target="_blank" rel="noreferrer">Découvrir <span>↗</span></a></article><style>.resource-card{display:flex;flex-direction:column;gap:14px}.resource-card.featured{background:linear-gradient(145deg,rgba(239,85,26,.14),rgba(255,255,255,.04))}.resource-icon{width:55px;height:55px;display:grid;place-items:center;border-radius:16px;background:#201a92;color:#ff7a00;font:800 .9rem Syne}.resource-card p{color:#aaa8ba;margin:0}.resource-card a{align-self:flex-start;margin-top:auto;padding:9px 14px;font-size:.82rem}</style>
+<article class:list={['resource-card',{featured:r.featured}]}>
+  {r.image&&<div class="resource-cover"><img src={r.image} alt={`Aperçu de ${r.title}`} width="900" height="675" loading="lazy"/><span>{r.type}</span></div>}
+  <div class="resource-content">
+    <div class="tag-row"><span class="badge">{r.type}</span><span class="badge badge-orange">{r.price}</span></div>
+    <h3>{r.title}</h3><p>{r.description}</p>
+    {r.includes&&<p class="included"><span>Dans le pack</span>{r.includes}</p>}
+    {r.status&&<small>✓ {r.status}</small>}
+    <a class="btn btn-secondary" href={r.url} target="_blank" rel="noreferrer">{r.action||'Découvrir'} <span>↗</span></a>
+  </div>
+</article>
+<style>
+  .resource-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(255,255,255,.12);border-radius:24px;background:#f9f6f4;color:#0a0823;transition:.22s ease}.resource-card:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.25)}.resource-card.featured{box-shadow:0 0 0 1px rgba(255,122,0,.45)}
+  .resource-cover{position:relative;aspect-ratio:16/10;overflow:hidden;background:#090851}.resource-cover img{width:100%;height:100%;object-fit:cover;transition:transform .4s}.resource-card:hover .resource-cover img{transform:scale(1.025)}.resource-cover>span{position:absolute;left:14px;top:14px;padding:6px 10px;background:#0a0823;color:#fff;border-radius:999px;font-size:.68rem;font-weight:800;text-transform:uppercase}
+  .resource-content{display:flex;flex:1;flex-direction:column;gap:12px;padding:22px}.resource-content .badge{color:#4d4a57;border-color:rgba(10,8,35,.13);background:rgba(10,8,35,.05)}.resource-content .badge-orange{color:#9b3a00;background:rgba(255,122,0,.12);border-color:rgba(255,122,0,.3)}.resource-content p{color:#55515f;margin:0}.included{display:grid;gap:2px;padding:12px 0;border-block:1px solid rgba(10,8,35,.1);font-weight:700}.included span{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#9b3a00}.resource-content small{color:#686472}.resource-content a{align-self:flex-start;margin-top:auto;padding:10px 15px;font-size:.8rem;color:#fff;background:#0a0823}.resource-content a:hover{background:#201a92}
+</style>

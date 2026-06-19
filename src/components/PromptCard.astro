@@ -1,6 +1,29 @@
 ---
-import type {Prompt} from '../data/prompts';
-const {prompt:p, compact=false}:{prompt:Prompt,compact?:boolean}=Astro.props;
+import type { Prompt } from '../data/prompts';
+const { prompt:p, compact=false }:{prompt:Prompt,compact?:boolean}=Astro.props;
 ---
-<article class="card prompt-card" data-search={`${p.title} ${p.description} ${p.tool} ${p.category}`.toLowerCase()} data-category={`${p.tool}|${p.category}`}><div class="tag-row"><span class="badge badge-orange">{p.tool}</span><span class="badge">{p.level}</span><span class="badge">{p.format}</span></div><h3>{p.title}</h3><p class="desc">{p.description}</p>{!compact&&<><div class="prompt-text">{p.prompt}</div><button class="copy btn btn-secondary" data-copy={p.prompt}><span>⧉</span><span class="copy-label">Copier le prompt</span></button><details><summary>Le conseil de Papy</summary><p>{p.tips}</p><b>Variation</b><p>{p.variation}</p></details></>}{compact&&<a href={`/prompts#${p.id}`}>Voir le prompt <span>→</span></a>}</article>
-<style>.prompt-card{display:flex;flex-direction:column;gap:15px}.prompt-card:before{content:"";position:absolute;width:80px;height:80px;right:-20px;top:-20px;background:#ef551a;filter:blur(55px);opacity:.18}.desc{margin:0;color:#aaa8ba}.prompt-text{font:500 .83rem/1.65 'JetBrains Mono',monospace;color:#dedce8;background:rgba(3,3,24,.62);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:16px;max-height:145px;overflow:auto}.copy{align-self:flex-start;padding:9px 13px;font-size:.8rem}.copy.copied{background:rgba(76,210,148,.16);border-color:rgba(76,210,148,.4);color:#9af1c5}details{border-top:1px solid rgba(255,255,255,.1);padding-top:12px}summary{cursor:pointer;font-weight:700;color:#ffc49c}details p{font-size:.86rem;color:#aaa8ba}a{color:#ffc49c;font-weight:750;font-size:.9rem;margin-top:auto}</style>
+<article class:list={['card','prompt-card',{compact}]} data-search={`${p.title} ${p.description} ${p.tool} ${p.category}`.toLowerCase()} data-category={`${p.tool}|${p.category}`}>
+  {p.image && <a class="preview" href={`/prompts#${p.id}`} aria-label={`Voir ${p.title}`}>
+    <img src={p.image} alt={`Exemple visuel pour ${p.title}`} width="900" height="1125" loading="lazy"/>
+    <span>Résultat exemple</span>
+  </a>}
+  <div class="content">
+    <div class="tag-row"><span class="badge badge-orange">{p.tool}</span><span class="badge">{p.level}</span><span class="badge">{p.format}</span></div>
+    <h3>{p.title}</h3>
+    <p class="desc">{p.description}</p>
+    {p.tested && <p class="proof"><span>✓</span> {p.tested}{p.updated && ` · ${p.updated}`}</p>}
+    {!compact&&<>
+      <div class="prompt-text">{p.prompt}</div>
+      <button class="copy btn btn-primary" data-copy={p.prompt}><span>⧉</span><span class="copy-label">Copier le prompt</span></button>
+      <details><summary>Conseil et variation</summary><p>{p.tips}</p><b>Variation</b><p>{p.variation}</p></details>
+    </>}
+    {compact&&<a class="card-link" href={`/prompts#${p.id}`}>Ouvrir le prompt <span>→</span></a>}
+  </div>
+</article>
+<style>
+  .prompt-card{padding:0;display:flex;flex-direction:column;overflow:hidden;gap:0}.prompt-card:before{content:"";position:absolute;width:80px;height:80px;right:-20px;top:-20px;background:#ef551a;filter:blur(55px);opacity:.18}
+  .preview{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.1)}.preview img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}.preview:hover img{transform:scale(1.035)}.preview span{position:absolute;right:12px;bottom:12px;padding:5px 9px;border-radius:999px;background:rgba(10,8,35,.82);border:1px solid rgba(255,255,255,.18);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+  .content{padding:22px;display:flex;flex:1;flex-direction:column;gap:13px}.desc{margin:0;color:#aaa8ba}.proof{margin:0;color:#bcb9ca;font-size:.75rem}.proof span{color:#65e1a3}
+  .prompt-text{font:500 .81rem/1.65 'JetBrains Mono',monospace;color:#dedce8;background:rgba(3,3,24,.62);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:16px;max-height:145px;overflow:auto}.copy{align-self:flex-start;padding:10px 15px;font-size:.8rem}.copy.copied{background:#23865c;color:#fff}details{border-top:1px solid rgba(255,255,255,.1);padding-top:12px}summary{cursor:pointer;font-weight:700;color:#ff9a3d}details p{font-size:.86rem;color:#aaa8ba}.card-link{color:#ff9a3d;font-weight:750;font-size:.9rem;margin-top:auto}
+  @media(max-width:640px){.preview{aspect-ratio:4/3}.content{padding:20px}}
+</style>
